@@ -4,9 +4,7 @@ import android.util.Log;
 
 import java.lang.reflect.Method;
 
-/**
- * Created by dady on 14.3.2017.
- */
+// Class that enables use of SystemProperties class, which is hidden within AOSP Sources
 
 final class SystemPropertiesReflection {
 
@@ -14,9 +12,8 @@ final class SystemPropertiesReflection {
 
     static String GetSystemString(String name, String def)
     {
-        Class systemProperties = null;
         try {
-            systemProperties = Class.forName("android.os.SystemProperties");
+            Class<?> systemProperties = Class.forName("android.os.SystemProperties");
             Method method = systemProperties.getDeclaredMethod("get", String.class, String.class);
             String propertyValue = (String)method.invoke(systemProperties, name, def);
             Log.d(TAG, "GetSystemString: Prop [" + name + "] Value [" + propertyValue + "]");
@@ -29,9 +26,8 @@ final class SystemPropertiesReflection {
 
     static void SetSystemString(String name, String val)
     {
-        Class systemProperties = null;
         try {
-            systemProperties = Class.forName("android.os.SystemProperties");
+            Class<?> systemProperties = Class.forName("android.os.SystemProperties");
             Method method = systemProperties.getDeclaredMethod("set", String.class, String.class);
             method.invoke(systemProperties, name, val);
             Log.d(TAG, "SetSystemString: Prop [" + name + "] Value [" + val + "]");
