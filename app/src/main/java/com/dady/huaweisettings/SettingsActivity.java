@@ -69,7 +69,7 @@ public class SettingsActivity extends AppCompatActivity {
             case R.id.action_reboot: {
                 try {
                     //Process proc = Runtime.getRuntime().exec(new String[]{"sh", "-c", "killall system_server"});
-                    Process proc = Runtime.getRuntime().exec(new String[]{"sh", "-c", "reboot"});
+                    Process proc = Runtime.getRuntime().exec(new String[]{"sh", "-c", "svc power reboot"});
                     proc.waitFor();
                 } catch (Exception ex) {
                     Log.e(TAG, ex.getMessage());
