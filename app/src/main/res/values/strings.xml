@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Huawei Preferences</string>
+    <string name="extras_section_name">Huawei Preferences</string>
+
+    <string name="pref_huawei_simsetting_title">Dual SIM</string>
+    <string name="pref_huawei_simsetting_description">Switch the device from single-sim to dual-sim. Use this switch ONLY if you have two SIMs inside your device. (Requires reboot)</string>
+    <string name="pref_huawei_simsetting_key" translatable="false">pref_huawei_simsetting</string>
+
+    <string name="action_reboot_title">Reboot</string>
+</resources>

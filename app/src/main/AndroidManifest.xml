@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.dady.huaweisettings" android:sharedUserId="android.uid.system">
+
+    <!-- UNCOMMENT ON RELEASE
+    android:sharedUserId="android.uid.system">
+    -->
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="com.dady.huaweisettings.SettingsActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="com.android.settings.SHORTCUT" />
+
+                <!-- UNCOMMENT FOR LAUNCHER APPEARANCE
+                <category android:name="android.intent.category.LAUNCHER" />
+                -->
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity-alias
+            android:name=".SettingsActivityAlias"
+            android:label="@string/extras_section_name"
+            android:targetActivity="com.dady.huaweisettings.SettingsActivity">
+            <intent-filter android:priority="1">
+                <action android:name="com.android.settings.action.EXTRA_SETTINGS" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data
+                android:name="com.android.settings.category"
+                android:value="com.android.settings.category.device" />
+            <meta-data
+                android:name="com.android.settings.icon"
+                android:resource="@drawable/ic_cake_black_24dp" />
+        </activity-alias>
+    </application>
+</manifest>

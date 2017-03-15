@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="prefscreen_main">
+
+    <SwitchPreference
+        android:key="@string/pref_huawei_simsetting_key"
+        android:summary="@string/pref_huawei_simsetting_description"
+        android:title="@string/pref_huawei_simsetting_title" />
+
+</PreferenceScreen>
