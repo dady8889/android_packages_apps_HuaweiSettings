@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:title="@string/action_reboot_title"
-        android:id="@+id/action_hot_reboot"
+        android:id="@+id/action_reboot"
         android:icon="@drawable/ic_replay_white_24dp"
         app:showAsAction="ifRoom"/>
 </menu>
