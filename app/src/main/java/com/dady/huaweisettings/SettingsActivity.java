@@ -1,3 +1,7 @@
+// HuaweiSettings - android_packages_apps_HuaweiSettings
+// Simple Java app that provides preferences specific to the Huawei P9 Lite line of devices (AOSP)
+// Copyright (C) 2017  Daniel 'dady8889' Múčka
+
 package com.dady.huaweisettings;
 
 
