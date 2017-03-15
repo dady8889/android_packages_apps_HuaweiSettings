@@ -33,7 +33,7 @@
         </activity>
 
         <activity-alias
-            android:name=".SettingsActivityAlias"
+            android:name="com.dady.huaweisettings.SettingsActivityAlias"
             android:label="@string/extras_section_name"
             android:targetActivity="com.dady.huaweisettings.SettingsActivity">
             <intent-filter android:priority="1">
