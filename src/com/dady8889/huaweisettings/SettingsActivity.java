@@ -6,8 +6,10 @@ package com.dady8889.huaweisettings;
 
 import android.os.Bundle;
 import android.app.AlertDialog;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.Context;
 import android.preference.SwitchPreference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
@@ -25,12 +27,15 @@ public class SettingsActivity extends SettingsDrawerActivity {
     private static final String TAG = "HuaweiSettings";
 
     private static final String PROPERTY_MULTISIM_CONFIG = "persist.radio.multisim.config";
+    private static final String PROPERTY_SOFT_VSYNC = "debug.sf.no_hw_vsync";
+    private static final String PROPERTY_HAL_POWER = "persist.sys.stock_power_HAL";
+    private static final String PROPERTY_HAL_LIGHTS = "persist.sys.stock_lights_HAL";
+    private static final String PROPERTY_HAL_SENSORS = "persist.sys.sensorex";
+    private static final String PROPERTY_MEDIA_GOOGLE_ENCODER = "persist.sys.google_avc_enc";
 
     private static final String STRING_NULL = "null";
 
     private static final int MENU_REBOOT = Menu.FIRST;
-
-    SharedPreferences preferenceManager;
 
     private static final class SimConfig {
         private SimConfig () {}
@@ -45,9 +50,6 @@ public class SettingsActivity extends SettingsDrawerActivity {
 
         // Display the fragment as the main content.
         getFragmentManager().beginTransaction().replace(R.id.content_frame, new HuaweiFragment()).commit();
-
-        // Get default preferences file
-        preferenceManager = PreferenceManager.getDefaultSharedPreferences(this);
 
         Log.d(TAG, "Activity opened!");
     }
@@ -102,7 +104,16 @@ public class SettingsActivity extends SettingsDrawerActivity {
         return true;
     }
 
-    public class HuaweiFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+    public static class HuaweiFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+
+        private static SharedPreferences preferenceManager;
+        private static Context globalContext;
+
+        @Override
+        public void onAttach(Activity activity) {
+            super.onAttach(activity);
+            globalContext = activity.getApplicationContext();
+        }
 
         @Override
         public void onResume() {
@@ -121,24 +132,82 @@ public class SettingsActivity extends SettingsDrawerActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
+            String actualString;
+            boolean actualBool, functionAvailable;
+            SwitchPreference switchPref;
+
             // Load the preferences from an XML resource
             addPreferencesFromResource(R.layout.preferences);
+            preferenceManager = PreferenceManager.getDefaultSharedPreferences(globalContext);
 
-            // Get saved preferences
+            // Set RIL/Dual SIM
+            actualString = SystemPropertiesReflection.GetSystemString(PROPERTY_MULTISIM_CONFIG, STRING_NULL);
+            switchPref = (SwitchPreference)findPreference("pref_huawei_simsetting");
+            switchPref.setChecked(actualString.equals(SimConfig.DualStandby));
+            switchPref.setEnabled(false); // Disable Dual SIM on AOSPA N
 
-            // Set RIL/Dual SIM value
-            String actualSimSettingValue = SystemPropertiesReflection.GetSystemString(PROPERTY_MULTISIM_CONFIG, STRING_NULL);
-            SwitchPreference switchpref = (SwitchPreference)findPreference("pref_huawei_simsetting");
-            switchpref.setChecked(actualSimSettingValue.equals(SimConfig.DualStandby) ? true : false);
-            switchpref.setEnabled(false); // Disable Dual SIM on AOSPA N
-
-            // Set Gestures/Double tap to wake value
-            switchpref = (SwitchPreference)findPreference("pref_huawei_dt2w");
-            boolean dt2wAvailable = Functions.IsDT2WAvailable();
-            if (dt2wAvailable) {
-                switchpref.setChecked(Functions.IsDT2WEnabled() || preferenceManager.getBoolean("pref_huawei_dt2w", false));
+            // Set Gestures/Double tap to wake
+            switchPref = (SwitchPreference)findPreference("pref_huawei_dt2w");
+            functionAvailable = Functions.IsDT2WAvailable();
+            if (functionAvailable) {
+                boolean savedValue = preferenceManager.getBoolean("pref_huawei_dt2w", false);
+                if (savedValue) {
+                    switchPref.setChecked(savedValue);
+                    Functions.SetDT2WValue(savedValue);
+                }
             } else {
-                switchpref.setEnabled(false);
+                switchPref.setEnabled(false);
+            }
+
+            // Set Workarounds/Software vsync
+            actualBool = SystemPropertiesReflection.GetSystemBoolean(PROPERTY_SOFT_VSYNC, true);
+            switchPref = (SwitchPreference)findPreference("pref_aospa_vsync");
+            switchPref.setChecked(actualBool);
+
+            // Set HAL/Power
+            actualBool = SystemPropertiesReflection.GetSystemBoolean(PROPERTY_HAL_POWER, false);
+            switchPref = (SwitchPreference)findPreference("pref_hal_power");
+            switchPref.setChecked(actualBool);
+
+            // Set HAL/Lights
+            actualBool = SystemPropertiesReflection.GetSystemBoolean(PROPERTY_HAL_LIGHTS, false);
+            switchPref = (SwitchPreference)findPreference("pref_hal_lights");
+            switchPref.setChecked(actualBool);
+
+            // Set HAL/Sensors
+            actualBool = SystemPropertiesReflection.GetSystemBoolean(PROPERTY_HAL_SENSORS, false);
+            switchPref = (SwitchPreference)findPreference("pref_hal_sensors");
+            switchPref.setChecked(actualBool);
+
+            // Set Media/Google AVC encoder
+            actualBool = SystemPropertiesReflection.GetSystemBoolean(PROPERTY_MEDIA_GOOGLE_ENCODER, false);
+            switchPref = (SwitchPreference)findPreference("pref_media_encoder");
+            switchPref.setChecked(actualBool);
+
+            // Set Other/Gloves mode
+            switchPref = (SwitchPreference)findPreference("pref_huawei_glovemode");
+            functionAvailable = Functions.IsGloveModeAvailable();
+            if (functionAvailable) {
+                boolean savedValue = preferenceManager.getBoolean("pref_huawei_glovemode", false);
+                if (savedValue) {
+                    switchPref.setChecked(savedValue);
+                    Functions.SetGloveModeValue(savedValue);
+                }
+            } else {
+                switchPref.setEnabled(false);
+            }
+
+            // Set Other/USB Host mode
+            switchPref = (SwitchPreference)findPreference("pref_huawei_usbhostmode");
+            functionAvailable = Functions.IsUSBHostModeAvailable();
+            if (functionAvailable) {
+                boolean savedValue = preferenceManager.getBoolean("pref_huawei_usbhostmode", false);
+                if (savedValue) {
+                    switchPref.setChecked(savedValue);
+                    Functions.SetUSBHostModeValue(savedValue);
+                }
+            } else {
+                switchPref.setEnabled(false);
             }
         }
 
@@ -160,6 +229,37 @@ public class SettingsActivity extends SettingsDrawerActivity {
                 case R.string.pref_huawei_dt2w_key: {
                     Functions.SetDT2WValue(newValue);
                     editor.putBoolean("pref_huawei_dt2w", newValue);
+                    break;
+                }
+                case R.string.pref_aospa_vsync_key: {
+                    SystemPropertiesReflection.SetSystemString(PROPERTY_SOFT_VSYNC, newValue ? "1" : "0");
+                    editor.putBoolean("pref_aospa_vsync", newValue);
+                    break;
+                }
+                case R.string.pref_hal_power_key: {
+                    SystemPropertiesReflection.SetSystemString(PROPERTY_HAL_POWER, newValue ? "true" : "false");
+                    break;
+                }
+                case R.string.pref_hal_lights_key: {
+                    SystemPropertiesReflection.SetSystemString(PROPERTY_HAL_LIGHTS, newValue ? "true" : "false");
+                    break;
+                }
+                case R.string.pref_hal_sensors_key: {
+                    SystemPropertiesReflection.SetSystemString(PROPERTY_HAL_SENSORS, newValue ? "true" : "false");
+                    break;
+                }
+                case R.string.pref_media_encoder_key: {
+                    SystemPropertiesReflection.SetSystemString(PROPERTY_MEDIA_GOOGLE_ENCODER, newValue ? "true" : "false");
+                    break;
+                }
+                case R.string.pref_huawei_glovemode_key: {
+                    Functions.SetGloveModeValue(newValue);
+                    editor.putBoolean("pref_huawei_glovemode", newValue);
+                    break;
+                }
+                case R.string.pref_huawei_usbhostmode_key: {
+                    Functions.SetUSBHostModeValue(newValue);
+                    editor.putBoolean("pref_huawei_usbhostmode", newValue);
                     break;
                 }
             }

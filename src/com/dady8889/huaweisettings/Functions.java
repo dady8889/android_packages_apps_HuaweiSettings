@@ -7,15 +7,13 @@ package com.dady8889.huaweisettings;
 import android.util.Log;
 
 import java.io.*;
-import java.io.FileInputStream;
-import java.util.Random;
-import java.io.BufferedWriter;
-import java.io.BufferedReader;
 
 public class Functions {
     private static final String TAG = "HuaweiSettings_Funcs";
 
     private static final String FILE_EASY_WAKEUP_GESTURE = "/sys/devices/platform/huawei_touch/easy_wakeup_gesture";
+    private static final String FILE_GLOVE_MODE = "/sys/devices/platform/huawei_touch/touch_glove";
+    private static final String FILE_USB_HOST = "/sys/devices/ff100000.hisi_usb/plugusb";
 
     public static String SysRead(String fileName) {
         String line = null;
@@ -75,23 +73,46 @@ public class Functions {
         return SysIsAvailable(FILE_EASY_WAKEUP_GESTURE);
     }
 
-    public static boolean IsDT2WEnabled() {
-       String gestureTypeValue = "";
-       try {
-           gestureTypeValue = SysRead(FILE_EASY_WAKEUP_GESTURE);
-       } catch (Exception e) { e.printStackTrace(); }
-       Log.i(TAG,"DT2W type=" + gestureTypeValue);
-       return gestureTypeValue.equals("0x0001");
+    public static void SetDT2WValue(boolean on) {
+        try {
+            if (on) {
+                Log.i(TAG, "Enabling DT2W");
+                SysWrite(FILE_EASY_WAKEUP_GESTURE, "1");
+            } else {
+                Log.i(TAG, "Disabling DT2W");
+                SysWrite(FILE_EASY_WAKEUP_GESTURE, "0");
+            }
+        } catch (Exception e) { e.printStackTrace(); }
     }
 
-    public static void SetDT2WValue(boolean on) {
-    try {
-        if (on) {
-            Log.i(TAG, "Enabling DT2W");
-                SysWrite(FILE_EASY_WAKEUP_GESTURE, "1");
-        } else {
-            Log.i(TAG, "Disabling DT2W");
-                SysWrite(FILE_EASY_WAKEUP_GESTURE, "0");
+    public static boolean IsGloveModeAvailable() {
+        return SysIsAvailable(FILE_GLOVE_MODE);
+    }
+
+    public static void SetGloveModeValue(boolean on) {
+        try {
+            if (on) {
+                Log.i(TAG, "Enabling Glove Mode");
+                SysWrite(FILE_GLOVE_MODE, "1");
+            } else {
+                Log.i(TAG, "Disabling Glove Mode");
+                SysWrite(FILE_GLOVE_MODE, "0");
+            }
+        } catch (Exception e) { e.printStackTrace(); }
+    }
+
+    public static boolean IsUSBHostModeAvailable() {
+        return SysIsAvailable(FILE_USB_HOST);
+    }
+
+    public static void SetUSBHostModeValue(boolean on) {
+        try {
+            if (on) {
+                Log.i(TAG, "Enabling USB Host Mode");
+                SysWrite(FILE_USB_HOST, "hoston");
+            } else {
+                Log.i(TAG, "Disabling USB Host Mode");
+                SysWrite(FILE_USB_HOST, "hostoff");
             }
         } catch (Exception e) { e.printStackTrace(); }
     }

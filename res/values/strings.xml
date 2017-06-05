@@ -2,20 +2,61 @@
 <resources>
     <string name="app_name">Huawei Preferences</string>
 
+    <!-- Preference groups -->
     <string name="ril_settings_title">RIL</string>
     <string name="gestures_settings_title">Gestures</string>
+    <string name="workarounds_settings_title">Workarounds</string>
+    <string name="hal_settings_title">Hardware abstraction layer</string>
+    <string name="media_settings_title">Media</string>
+    <string name="other_settings_title">Other</string>
 
+    <!-- RIL -->
     <string name="pref_huawei_simsetting_title">Dual SIM</string>
     <string name="pref_huawei_simsetting_description">Switch the device from single-sim to dual-sim. Use this switch ONLY if you have two SIMs inside your device. (Requires reboot)</string>
     <string name="pref_huawei_simsetting_key" translatable="false">pref_huawei_simsetting</string>
 
+    <!-- Gestures -->
     <string name="pref_huawei_dt2w_title">Double tap to wake</string>
     <string name="pref_huawei_dt2w_description"></string>
     <string name="pref_huawei_dt2w_key" translatable="false">pref_huawei_dt2w</string>
 
+    <!-- Workarounds -->
+    <string name="pref_aospa_vsync_title">Software vsync</string>
+    <string name="pref_aospa_vsync_description">Disable hwcomposer vsync to fix lagging issue. (Requires reboot)</string>
+    <string name="pref_aospa_vsync_key" translatable="false">pref_aospa_vsync</string>
+
+    <!-- HAL -->
+    <string name="pref_hal_power_title">Stock power</string>
+    <string name="pref_hal_power_description">Disables open-source power HAL. (Requires reboot)</string>
+    <string name="pref_hal_power_key" translatable="false">pref_hal_power</string>
+
+    <string name="pref_hal_lights_title">Stock lights</string>
+    <string name="pref_hal_lights_description">Disables open-source lights HAL. (Requires reboot)</string>
+    <string name="pref_hal_lights_key" translatable="false">pref_hal_lights</string>
+
+    <string name="pref_hal_sensors_title">Emulated gyroscope</string>
+    <string name="pref_hal_sensors_description">Enables experimental gyroscope sensor. (Requires reboot)</string>
+    <string name="pref_hal_sensors_key" translatable="false">pref_hal_sensors</string>
+
+    <!-- Media -->
+    <string name="pref_media_encoder_title">Google AVC encoder</string>
+    <string name="pref_media_encoder_description">Replaces stock video encoder with the Google one. May fix camera in some apps. (Requires reboot)</string>
+    <string name="pref_media_encoder_key" translatable="false">pref_media_encoder</string>
+
+    <!-- Other -->
+    <string name="pref_huawei_glovemode_title">Gloves mode</string>
+    <string name="pref_huawei_glovemode_description">Should higher the touchscreen sensitivity.</string>
+    <string name="pref_huawei_glovemode_key" translatable="false">pref_huawei_glovemode</string>
+
+    <string name="pref_huawei_usbhostmode_title">USB Host mode</string>
+    <string name="pref_huawei_usbhostmode_description">Turns your device into USB host. Also known as USB OTG.</string>
+    <string name="pref_huawei_usbhostmode_key" translatable="false">pref_huawei_usbhostmode</string>
+
+    <!-- Menu -->
     <string name="action_reboot_title">Reboot</string>
     <string name="action_reboot_description">Do you want to reboot right now?</string>
 
+    <!-- Dialog options -->
     <string name="alert_yes">Yes</string>
     <string name="alert_no">No</string>
 </resources>

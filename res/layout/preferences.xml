@@ -20,4 +20,52 @@
             android:title="@string/pref_huawei_dt2w_title" />
     </PreferenceCategory>
 
+    <PreferenceCategory
+            android:key="workarounds_settings"
+            android:title="@string/workarounds_settings_title">
+        <SwitchPreference
+            android:key="@string/pref_aospa_vsync_key"
+            android:summary="@string/pref_aospa_vsync_description"
+            android:title="@string/pref_aospa_vsync_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            android:key="hal_settings"
+            android:title="@string/hal_settings_title">
+        <SwitchPreference
+            android:key="@string/pref_hal_power_key"
+            android:summary="@string/pref_hal_power_description"
+            android:title="@string/pref_hal_power_title" />
+        <SwitchPreference
+            android:key="@string/pref_hal_lights_key"
+            android:summary="@string/pref_hal_lights_description"
+            android:title="@string/pref_hal_lights_title" />
+        <SwitchPreference
+            android:key="@string/pref_hal_sensors_key"
+            android:summary="@string/pref_hal_sensors_description"
+            android:title="@string/pref_hal_sensors_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            android:key="media_settings"
+            android:title="@string/media_settings_title">
+        <SwitchPreference
+            android:key="@string/pref_media_encoder_key"
+            android:summary="@string/pref_media_encoder_description"
+            android:title="@string/pref_media_encoder_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            android:key="other_settings"
+            android:title="@string/other_settings_title">
+        <SwitchPreference
+            android:key="@string/pref_huawei_glovemode_key"
+            android:summary="@string/pref_huawei_glovemode_description"
+            android:title="@string/pref_huawei_glovemode_title" />
+        <SwitchPreference
+            android:key="@string/pref_huawei_usbhostmode_key"
+            android:summary="@string/pref_huawei_usbhostmode_description"
+            android:title="@string/pref_huawei_usbhostmode_title" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

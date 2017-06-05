@@ -39,4 +39,18 @@ final class SystemPropertiesReflection {
             Log.e(TAG, "SetSystemString: " + ex.getMessage());
         }
     }
+
+    static boolean GetSystemBoolean(String name, boolean def)
+    {
+        try {
+            Class<?> systemProperties = Class.forName("android.os.SystemProperties");
+            Method method = systemProperties.getDeclaredMethod("getBoolean", String.class, boolean.class);
+            boolean propertyValue = (boolean)method.invoke(systemProperties, name, def);
+            Log.d(TAG, "GetSystemBoolean: prop=" + name + " value=" + propertyValue);
+            return propertyValue;
+        } catch (Exception ex) {
+            Log.e(TAG, "GetSystemBoolean: " + ex.getMessage());
+        }
+        return def;
+    }
 }
