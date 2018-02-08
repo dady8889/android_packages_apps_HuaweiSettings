@@ -32,6 +32,7 @@ public class SettingsActivity extends SettingsDrawerActivity {
     private static final String PROPERTY_HAL_LIGHTS = "persist.sys.stock_lights_HAL";
     private static final String PROPERTY_HAL_SENSORS = "persist.sys.sensorex";
     private static final String PROPERTY_MEDIA_GOOGLE_ENCODER = "persist.sys.google_avc_enc";
+    private static final String PROPERTY_NOBLE = "persist.sys.noble";
 
     private static final String STRING_NULL = "null";
 
@@ -58,7 +59,7 @@ public class SettingsActivity extends SettingsDrawerActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        // Ad reboot button to menu
+        // Add reboot button to menu
         menu.add(Menu.NONE, MENU_REBOOT, Menu.NONE, R.string.action_reboot_title).setIcon(R.drawable.ic_replay_white_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         return true;
@@ -144,7 +145,6 @@ public class SettingsActivity extends SettingsDrawerActivity {
             actualString = SystemPropertiesReflection.GetSystemString(PROPERTY_MULTISIM_CONFIG, STRING_NULL);
             switchPref = (SwitchPreference)findPreference("pref_huawei_simsetting");
             switchPref.setChecked(actualString.equals(SimConfig.DualStandby));
-            switchPref.setEnabled(false); // Disable Dual SIM on AOSPA N
 
             // Set Gestures/Double tap to wake
             switchPref = (SwitchPreference)findPreference("pref_huawei_dt2w");
@@ -162,6 +162,11 @@ public class SettingsActivity extends SettingsDrawerActivity {
             // Set Workarounds/Software vsync
             actualBool = SystemPropertiesReflection.GetSystemBoolean(PROPERTY_SOFT_VSYNC, true);
             switchPref = (SwitchPreference)findPreference("pref_aospa_vsync");
+            switchPref.setChecked(actualBool);
+
+            // Set Workarounds/Bluetooth pairing
+            actualBool = SystemPropertiesReflection.GetSystemBoolean(PROPERTY_NOBLE, true);
+            switchPref = (SwitchPreference)findPreference("pref_noble");
             switchPref.setChecked(actualBool);
 
             // Set HAL/Power
@@ -234,6 +239,10 @@ public class SettingsActivity extends SettingsDrawerActivity {
                 case R.string.pref_aospa_vsync_key: {
                     SystemPropertiesReflection.SetSystemString(PROPERTY_SOFT_VSYNC, newValue ? "1" : "0");
                     editor.putBoolean("pref_aospa_vsync", newValue);
+                    break;
+                }
+                case R.string.pref_noble_key: {
+                    SystemPropertiesReflection.SetSystemString(PROPERTY_NOBLE, newValue ? "true" : "false");
                     break;
                 }
                 case R.string.pref_hal_power_key: {

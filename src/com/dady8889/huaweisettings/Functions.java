@@ -13,8 +13,9 @@ public class Functions {
 
     private static final String FILE_EASY_WAKEUP_GESTURE = "/sys/devices/platform/huawei_touch/easy_wakeup_gesture";
     private static final String FILE_GLOVE_MODE = "/sys/devices/platform/huawei_touch/touch_glove";
-    private static final String FILE_USB_HOST = "/sys/devices/ff100000.hisi_usb/plugusb";
+    private static final String FILE_USB_HOST = "/sys/devices/platform/ff100000.hisi_usb/plugusb";
 
+    //region Sys
     public static String SysRead(String fileName) {
         String line = null;
         BufferedReader reader = null;
@@ -68,7 +69,9 @@ public class Functions {
 
         return true;
     }
+    //endregion
 
+    //region DoubleTap2Wake
     public static boolean IsDT2WAvailable() {
         return SysIsAvailable(FILE_EASY_WAKEUP_GESTURE);
     }
@@ -84,7 +87,9 @@ public class Functions {
             }
         } catch (Exception e) { e.printStackTrace(); }
     }
+    //endregion
 
+    //region Glove Mode
     public static boolean IsGloveModeAvailable() {
         return SysIsAvailable(FILE_GLOVE_MODE);
     }
@@ -100,7 +105,9 @@ public class Functions {
             }
         } catch (Exception e) { e.printStackTrace(); }
     }
+    //endregion
 
+    //region USB OTG
     public static boolean IsUSBHostModeAvailable() {
         return SysIsAvailable(FILE_USB_HOST);
     }
@@ -116,4 +123,5 @@ public class Functions {
             }
         } catch (Exception e) { e.printStackTrace(); }
     }
+    //endregion
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Nastavenia Huawei</string>
-    <string name="extras_section_name">Nastavenia Huawei</string>
     <string name="action_reboot_title">Reštart</string>
     <string name="pref_huawei_simsetting_description">Prepne zariadenie zo single-sim na dual-sim. Zapnite to LEN ak máte vo vašom telefóne dve SIM karty. (Vyžaduje reštart)</string>
     <string name="pref_huawei_simsetting_title">Dual SIM</string>

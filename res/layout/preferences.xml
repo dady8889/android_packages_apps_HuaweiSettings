@@ -27,6 +27,10 @@
             android:key="@string/pref_aospa_vsync_key"
             android:summary="@string/pref_aospa_vsync_description"
             android:title="@string/pref_aospa_vsync_title" />
+        <SwitchPreference
+            android:key="@string/pref_noble_key"
+            android:summary="@string/pref_noble_description"
+            android:title="@string/pref_noble_title" />
     </PreferenceCategory>
 
     <PreferenceCategory

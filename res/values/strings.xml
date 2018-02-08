@@ -25,6 +25,10 @@
     <string name="pref_aospa_vsync_description">Disable hwcomposer vsync to fix lagging issue. (Requires reboot)</string>
     <string name="pref_aospa_vsync_key" translatable="false">pref_aospa_vsync</string>
 
+    <string name="pref_noble_title">Bluetooth pairing</string>
+    <string name="pref_noble_description">Fixes bluetooth pairing with the side effect of disabling BLE devices. (Requires reboot)</string>
+    <string name="pref_noble_key" translatable="false">pref_noble</string>
+
     <!-- HAL -->
     <string name="pref_hal_power_title">Stock power</string>
     <string name="pref_hal_power_description">Disables open-source power HAL. (Requires reboot)</string>
