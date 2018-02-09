@@ -57,6 +57,10 @@
             android:key="@string/pref_media_encoder_key"
             android:summary="@string/pref_media_encoder_description"
             android:title="@string/pref_media_encoder_title" />
+        <SwitchPreference
+            android:key="@string/pref_media_albumart_key"
+            android:summary="@string/pref_media_albumart_description"
+            android:title="@string/pref_media_albumart_title" />
     </PreferenceCategory>
 
     <PreferenceCategory

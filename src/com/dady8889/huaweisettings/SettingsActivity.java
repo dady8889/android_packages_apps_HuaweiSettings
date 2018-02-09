@@ -32,6 +32,7 @@ public class SettingsActivity extends SettingsDrawerActivity {
     private static final String PROPERTY_HAL_LIGHTS = "persist.sys.stock_lights_HAL";
     private static final String PROPERTY_HAL_SENSORS = "persist.sys.sensorex";
     private static final String PROPERTY_MEDIA_GOOGLE_ENCODER = "persist.sys.google_avc_enc";
+    private static final String PROPERTY_MEDIA_HIDEALBUMART = "persist.d.hidealbumart";
     private static final String PROPERTY_NOBLE = "persist.sys.noble";
 
     private static final String STRING_NULL = "null";
@@ -189,6 +190,11 @@ public class SettingsActivity extends SettingsDrawerActivity {
             switchPref = (SwitchPreference)findPreference("pref_media_encoder");
             switchPref.setChecked(actualBool);
 
+            // Set Media/Lockscreen album art
+            actualBool = SystemPropertiesReflection.GetSystemBoolean(PROPERTY_MEDIA_HIDEALBUMART, false);
+            switchPref = (SwitchPreference)findPreference("pref_media_albumart");
+            switchPref.setChecked(actualBool);
+
             // Set Other/Gloves mode
             switchPref = (SwitchPreference)findPreference("pref_huawei_glovemode");
             functionAvailable = Functions.IsGloveModeAvailable();
@@ -259,6 +265,10 @@ public class SettingsActivity extends SettingsDrawerActivity {
                 }
                 case R.string.pref_media_encoder_key: {
                     SystemPropertiesReflection.SetSystemString(PROPERTY_MEDIA_GOOGLE_ENCODER, newValue ? "true" : "false");
+                    break;
+                }
+                case R.string.pref_media_albumart_key: {
+                    SystemPropertiesReflection.SetSystemString(PROPERTY_MEDIA_HIDEALBUMART, newValue ? "true" : "false");
                     break;
                 }
                 case R.string.pref_huawei_glovemode_key: {

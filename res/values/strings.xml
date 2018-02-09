@@ -47,6 +47,10 @@
     <string name="pref_media_encoder_description">Replaces stock video encoder with the Google one. May fix camera in some apps. (Requires reboot)</string>
     <string name="pref_media_encoder_key" translatable="false">pref_media_encoder</string>
 
+    <string name="pref_media_albumart_title">Lockscreen album art</string>
+    <string name="pref_media_albumart_description">Disables the album art on lockscreen. Usable for Spotify, which doesn\'t have an option for it.</string>
+    <string name="pref_media_albumart_key" translatable="false">pref_media_albumart</string>
+
     <!-- Other -->
     <string name="pref_huawei_glovemode_title">Gloves mode</string>
     <string name="pref_huawei_glovemode_description">Should higher the touchscreen sensitivity.</string>
